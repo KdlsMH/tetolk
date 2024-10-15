@@ -1,0 +1,201 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+class User {
+  String userId;
+  String username;
+  String email;
+  String password;
+  String profileImage;
+  List<String> friends;
+  Timestamp createdAt;
+  Timestamp updatedAt;
+
+  User({
+    required this.userId,
+    required this.username,
+    required this.email,
+    required this.password,
+    required this.profileImage,
+    required this.friends,
+    required this.createdAt,
+    required this.updatedAt,
+  });
+}
+
+class ChatRoom {
+  String chatRoomId;
+  String roomName;
+  List<String> participants;
+  String chatType;
+  Timestamp createdAt;
+  Timestamp updatedAt;
+  List<Notice> notices;
+
+  ChatRoom({
+    required this.chatRoomId,
+    required this.roomName,
+    required this.participants,
+    required this.chatType,
+    required this.createdAt,
+    required this.updatedAt,
+    required this.notices,
+  });
+}
+
+class Notice {
+  String noticeId;
+  String content;
+  Timestamp createdAt;
+
+  Notice({
+    required this.noticeId,
+    required this.content,
+    required this.createdAt,
+  });
+}
+
+class Message {
+  String messageId;
+  String chatRoomId;
+  String senderId;
+  String messageContent;
+  String messageType;
+  String mediaUrl;
+  Timestamp sentAt;
+  bool isRead;
+
+  Message({
+    required this.messageId,
+    required this.chatRoomId,
+    required this.senderId,
+    required this.messageContent,
+    required this.messageType,
+    required this.mediaUrl,
+    required this.sentAt,
+    required this.isRead,
+  });
+}
+
+class File {
+  String fileId;
+  String fileName;
+  String fileType;
+  String fileUrl;
+  String uploaderId;
+  Timestamp uploadedAt;
+  String chatRoomId;
+
+  File({
+    required this.fileId,
+    required this.fileName,
+    required this.fileType,
+    required this.fileUrl,
+    required this.uploaderId,
+    required this.uploadedAt,
+    required this.chatRoomId,
+  });
+}
+
+class Friend {
+  String userId;
+  String friendId;
+  String status;
+  Timestamp addedAt;
+
+  Friend({
+    required this.userId,
+    required this.friendId,
+    required this.status,
+    required this.addedAt,
+  });
+}
+
+class UserProfile {
+  String userId;
+  String displayName;
+  String profileImage;
+  String bio;
+  PrivacySettings privacySettings;
+
+  UserProfile({
+    required this.userId,
+    required this.displayName,
+    required this.profileImage,
+    required this.bio,
+    required this.privacySettings,
+  });
+}
+
+class PrivacySettings {
+  bool showLastSeen;
+  bool showProfileImage;
+  bool allowFriendRequests;
+
+  PrivacySettings({
+    required this.showLastSeen,
+    required this.showProfileImage,
+    required this.allowFriendRequests,
+  });
+}
+
+class Calendar {
+  String calendarId;
+  String userId;
+  List<Event> events;
+  Timestamp createdAt;
+  Timestamp updatedAt;
+
+  Calendar({
+    required this.calendarId,
+    required this.userId,
+    required this.events,
+    required this.createdAt,
+    required this.updatedAt,
+  });
+}
+
+class Event {
+  String eventId;
+  String title;
+  String description;
+  Timestamp startTime;
+  Timestamp endTime;
+  bool isShared;
+  List<String> participants;
+
+  Event({
+    required this.eventId,
+    required this.title,
+    required this.description,
+    required this.startTime,
+    required this.endTime,
+    required this.isShared,
+    required this.participants,
+  });
+}
+
+class UserSettings {
+  String userId;
+  NotificationSettings notificationSettings;
+  String theme;
+  String language;
+
+  UserSettings({
+    required this.userId,
+    required this.notificationSettings,
+    required this.theme,
+    required this.language,
+  });
+}
+
+class NotificationSettings {
+  bool chatNotifications;
+  bool groupNotifications;
+  bool calendarNotifications;
+
+  NotificationSettings({
+    required this.chatNotifications,
+    required this.groupNotifications,
+    required this.calendarNotifications,
+  });
+}
