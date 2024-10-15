@@ -1,0 +1,91 @@
+[
+    {
+      "user_id": "UUID", 
+      "username": "string",
+      "email": "string",
+      "password": "string (hashed)",
+      "profile_image": "string (URL)",
+      "friends": ["user_id"],  
+      "created_at": "Firestore.Timestamp", 
+      "updated_at": "Firestore.Timestamp"
+    },
+    {
+      "chat_room_id": "UUID",
+      "room_name": "string",
+      "participants": ["user_id"],
+      "chat_type": "string",
+      "created_at": "Firestore.Timestamp", 
+      "updated_at": "Firestore.Timestamp",
+      "notices": [{
+        "notice_id": "UUID",
+        "content": "string",
+        "created_at": "Firestore.Timestamp"
+      }]
+    },
+{
+  "message_id": "UUID",
+  "chat_room_id": "UUID",
+  "sender_id": "UUID",
+  "message_content": "string",
+  "message_type": "string",  
+  "media_url": "string (URL)",
+  "sent_at": "Firestore.Timestamp",
+  "is_read": true  
+},
+
+{
+  "file_id": "UUID",
+  "file_name": "string",
+  "file_type": "string", 
+  "file_url": "string (URL)",
+  "uploader_id": "UUID",
+  "uploaded_at": "Firestore.Timestamp",
+  "chat_room_id": "UUID"
+},
+
+{
+  "user_id": "UUID",
+  "friend_id": "UUID",
+  "status": "string",  
+  "added_at": "Firestore.Timestamp"
+},
+
+{
+  "user_id": "UUID",
+  "display_name": "string",
+  "profile_image": "string (URL)",
+  "bio": "string",
+  "privacy_settings": {
+    "show_last_seen": true,
+    "show_profile_image": true,
+    "allow_friend_requests": true
+  }
+},
+
+{
+  "calendar_id": "UUID",
+  "user_id": "UUID",
+  "events": [{
+    "event_id": "UUID",
+    "title": "string",
+    "description": "string",
+    "start_time": "Firestore.Timestamp",
+    "end_time": "Firestore.Timestamp",
+    "is_shared": true,
+    "participants": ["user_id"]
+  }],
+  "created_at": "Firestore.Timestamp",
+  "updated_at": "Firestore.Timestamp"
+},
+
+{
+  "user_id": "UUID",
+  "notification_settings": {
+    "chat_notifications": true,
+    "group_notifications": true,
+    "calendar_notifications": true
+  },
+  "theme": "string", 
+  "language": "string"
+}
+]
