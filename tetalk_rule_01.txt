@@ -1,0 +1,58 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // 모든 문서에 대해 기본적으로 접근을 차단
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // users 컬렉션 (인증된 사용자만 자신의 정보를 읽고 쓸 수 있음)
+    match /users/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+
+    // chat_rooms 컬렉션 (참여자인 사용자만 읽고 쓸 수 있음)
+    match /chat_rooms/{chatRoomId} {
+      allow read: if request.auth != null && request.resource.data.participants has request.auth.uid;
+      allow write: if request.auth != null && request.resource.data.participants has request.auth.uid;
+    }
+
+    // chat_messages 컬렉션 (해당 채팅방에 속한 사람만 읽기 및 쓰기 가능)
+    match /chat_messages/{messageId} {
+      allow read: if request.auth != null && get(/databases/{database}/documents/chat_rooms/{resource.data.chat_room_id}).data.participants has request.auth.uid;
+      allow write: if request.auth != null && get(/databases/{database}/documents/chat_rooms/{resource.data.chat_room_id}).data.participants has request.auth.uid;
+    }
+
+    // files 컬렉션 (해당 채팅방의 참가자만 파일 접근 가능)
+    match /files/{fileId} {
+      allow read, write: if request.auth != null && get(/databases/{database}/documents/chat_rooms/{resource.data.chat_room_id}).data.participants has request.auth.uid;
+    }
+
+    // friends 컬렉션 (자신의 친구 목록만 접근 가능)
+    match /friends/{friendId} {
+      allow read, write: if request.auth != null && request.auth.uid == resource.data.user_id;
+    }
+
+    // profiles 컬렉션 (자신의 프로필만 읽고 쓸 수 있음)
+    match /profiles/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+
+    // settings 컬렉션 (자신의 설정만 읽고 쓸 수 있음)
+    match /settings/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+
+    // cloud_integrations 컬렉션 (자신의 클라우드 연동 정보만 접근 가능)
+    match /cloud_integrations/{integrationId} {
+      allow read, write: if request.auth != null && request.auth.uid == resource.data.user_id;
+    }
+
+    // calendars 컬렉션 (자신의 캘린더만 읽고 쓸 수 있음)
+    match /calendars/{calendarId} {
+      allow read, write: if request.auth != null && request.auth.uid == resource.data.user_id;
+    }
+  }
+}
